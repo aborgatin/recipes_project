@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+*.egg-info/
+dist/
+.env
+
+# Node
+node_modules/
+frontend/dist/
+
+# SQLite
+*.db
+*.db-shm
+*.db-wal
+data/
+
+# Misc
+.DS_Store
+*.log

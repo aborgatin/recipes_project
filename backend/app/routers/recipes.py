@@ -74,7 +74,7 @@ def _serialize(recipe: Recipe, user_id: int) -> dict:
     }
 
 
-@router.get("/", response_model=list[RecipeListItem])
+@router.get("", response_model=list[RecipeListItem])
 async def list_recipes(
     tag: str | None = Query(None),
     ingredient: str | None = Query(None),
@@ -124,7 +124,7 @@ async def get_recipe(recipe_id: int, db: AsyncSession = Depends(get_db), user: U
     return _serialize(recipe, user.id)
 
 
-@router.post("/", response_model=RecipeOut, status_code=201)
+@router.post("", response_model=RecipeOut, status_code=201)
 async def create_recipe(data: RecipeCreate, db: AsyncSession = Depends(get_db), user: User = Depends(current_user)):
     recipe = Recipe(
         title=data.title,

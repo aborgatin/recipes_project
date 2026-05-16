@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../hooks/useAuth'
-import { login, register } from '../api/auth'
+import { login, register, getMe } from '../api/auth'
 
 export default function LoginPage() {
   const [tab, setTab] = useState('login')
@@ -19,13 +19,12 @@ export default function LoginPage() {
     setLoading(true)
     try {
       if (tab === 'register') {
-        const user = await register(email, name, password)
-        const { access_token } = await login(email, password)
-        authLogin(user, access_token)
-      } else {
-        const { access_token } = await login(email, password)
-        authLogin({ email }, access_token)
+        await register(email, name, password)
       }
+      const { access_token } = await login(email, password)
+      localStorage.setItem('token', access_token)
+      const user = await getMe()
+      authLogin(user, access_token)
       navigate('/')
     } catch (err) {
       setError(err.response?.data?.detail || 'Ошибка')

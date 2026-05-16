@@ -7,6 +7,7 @@ from app.database import get_db
 from app.models.user import User
 from app.schemas.user import UserCreate, UserOut, Token
 from app.core.security import hash_password, verify_password, create_access_token
+from app.core.deps import current_user
 
 router = APIRouter(prefix="/api/auth", tags=["auth"])
 
@@ -29,3 +30,8 @@ async def login(form: OAuth2PasswordRequestForm = Depends(), db: AsyncSession = 
     if not user or not verify_password(form.password, user.hashed_password):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid credentials")
     return Token(access_token=create_access_token(user.id))
+
+
+@router.get("/me", response_model=UserOut)
+async def me(user: User = Depends(current_user)):
+    return user

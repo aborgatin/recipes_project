@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage'
 import RecipeListPage from './pages/RecipeListPage'
 import RecipeDetailPage from './pages/RecipeDetailPage'
 import RecipeFormPage from './pages/RecipeFormPage'
+import ShoppingListPage from './pages/ShoppingListPage'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="recipes/new" element={<RecipeFormPage />} />
             <Route path="recipes/:id" element={<RecipeDetailPage />} />
             <Route path="recipes/:id/edit" element={<RecipeFormPage />} />
+            <Route path="shopping" element={<ShoppingListPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

@@ -20,6 +20,7 @@ export default function Layout() {
           <div className="flex items-center gap-4">
             <Link to="/" className="text-sm text-gray-600 hover:text-gray-900">Все рецепты</Link>
             <Link to="/?favorites_only=true" className="text-sm text-gray-600 hover:text-gray-900">Избранное</Link>
+            <Link to="/shopping" className="text-sm text-gray-600 hover:text-gray-900">🛒 Покупки</Link>
             <Link to="/recipes/new" className="bg-emerald-600 text-white text-sm px-3 py-1.5 rounded-lg hover:bg-emerald-700">
               + Добавить
             </Link>

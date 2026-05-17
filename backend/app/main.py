@@ -27,7 +27,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from app.routers import auth, recipes
+from app.routers import auth, recipes, shopping
 
 app.include_router(auth.router)
 app.include_router(recipes.router)
+app.include_router(shopping.router)

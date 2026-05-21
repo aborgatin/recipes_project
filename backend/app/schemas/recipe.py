@@ -16,14 +16,14 @@ class IngredientOut(IngredientBase):
 
 class RecipeIngredientIn(BaseModel):
     ingredient_name: str
-    amount: float
-    unit: str
+    amount: float | None = None
+    unit: str | None = None
 
 
 class RecipeIngredientOut(BaseModel):
     ingredient: IngredientOut
-    amount: float
-    unit: str
+    amount: float | None = None
+    unit: str | None = None
     model_config = {"from_attributes": True}
 
 

@@ -92,7 +92,9 @@ export default function RecipeDetailPage() {
       {/* Фото */}
       <div className="rounded-2xl overflow-hidden bg-gray-100 h-72 mb-6 relative">
         {recipe.photo_path ? (
-          <img src={recipe.photo_path} alt={recipe.title} className="w-full h-full object-cover" />
+          <a href={recipe.photo_path} target="_blank" rel="noreferrer">
+            <img src={recipe.photo_path} alt={recipe.title} className="w-full h-full object-cover cursor-zoom-in" />
+          </a>
         ) : (
           <div className="w-full h-full flex items-center justify-center text-6xl">🍽️</div>
         )}
@@ -165,12 +167,14 @@ export default function RecipeDetailPage() {
             {recipe.ingredients.map((ri, i) => (
               <li key={i} className="flex justify-between text-sm py-2 border-b border-gray-100">
                 <span className="capitalize text-gray-700">{ri.ingredient.name}</span>
-                <span className="text-gray-500">
-                  {scale !== 1
-                    ? (ri.amount * scale % 1 === 0 ? ri.amount * scale : (ri.amount * scale).toFixed(1))
-                    : ri.amount}{' '}
-                  {ri.unit}
-                </span>
+                {(ri.amount != null || ri.unit) && (
+                  <span className="text-gray-500">
+                    {ri.amount != null && (scale !== 1
+                      ? (ri.amount * scale % 1 === 0 ? ri.amount * scale : (ri.amount * scale).toFixed(1))
+                      : ri.amount)}{' '}
+                    {ri.unit}
+                  </span>
+                )}
               </li>
             ))}
           </ul>

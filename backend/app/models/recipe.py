@@ -48,8 +48,8 @@ class RecipeIngredient(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     recipe_id: Mapped[int] = mapped_column(ForeignKey("recipes.id"))
     ingredient_id: Mapped[int] = mapped_column(ForeignKey("ingredients.id"))
-    amount: Mapped[float] = mapped_column(Float)
-    unit: Mapped[str] = mapped_column(String(50))  # г, мл, шт, ст.л.
+    amount: Mapped[float | None] = mapped_column(Float, nullable=True)
+    unit: Mapped[str | None] = mapped_column(String(50), nullable=True)
 
     recipe: Mapped["Recipe"] = relationship(back_populates="ingredients")
     ingredient: Mapped["Ingredient"] = relationship(back_populates="recipe_uses")

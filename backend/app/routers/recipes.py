@@ -126,6 +126,8 @@ async def get_recipe(recipe_id: int, db: AsyncSession = Depends(get_db), user: U
 
 @router.post("", response_model=RecipeOut, status_code=201)
 async def create_recipe(data: RecipeCreate, db: AsyncSession = Depends(get_db), user: User = Depends(current_user)):
+    tag_objects = [await _get_or_create_tag(db, name) for name in data.tags]
+
     recipe = Recipe(
         title=data.title,
         description=data.description,
@@ -134,13 +136,10 @@ async def create_recipe(data: RecipeCreate, db: AsyncSession = Depends(get_db), 
         cook_time_minutes=data.cook_time_minutes,
         source=data.source,
         author_id=user.id,
+        tags=tag_objects,
     )
     db.add(recipe)
     await db.flush()
-
-    for tag_name in data.tags:
-        tag = await _get_or_create_tag(db, tag_name)
-        recipe.tags.append(tag)
 
     for ri_data in data.ingredients:
         ingredient = await _get_or_create_ingredient(db, ri_data.ingredient_name)
